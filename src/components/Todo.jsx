@@ -10,16 +10,19 @@ const Todo = () => {
 
         if (!todoName.trim()) {
             setError('must be filled')
+            return
         }
 
-        const existingTodos = todos.findIndex((todo) => todo.name === todoName)
+        const existingTodos = todos.findIndex(
+            (todo) => todo.name === todoName.toLowerCase()
+        )
 
         if (existingTodos !== -1) {
             setError('todos already exist')
             return
         }
 
-        setTodos([...todos, { name: todoName }])
+        setTodos([...todos, { name: todoName.toLowerCase() }])
         setTodoName('')
         setError('')
     }
@@ -45,12 +48,13 @@ const Todo = () => {
                         Submit
                     </button>
                 </div>
+                <br />
                 {error}
 
                 <div>
                     {todos.map((todo, index) => (
                         <ul key={index} className="list-disc">
-                            <li>{todo.name}</li>
+                            <li className="capitalize">{todo.name}</li>
                         </ul>
                     ))}
                 </div>
